@@ -1,0 +1,43 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <OutputType>WinExe</OutputType>
+        <TargetFramework>net9.0</TargetFramework>
+        <RootNamespace>YAMIOS</RootNamespace>
+        <LangVersion>latest</LangVersion>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Avalonia" Version="11.3.3" />
+        <PackageReference Include="Avalonia.Desktop" Version="11.3.3" />
+        <PackageReference Include="Avalonia.Themes.Fluent" Version="11.3.3" />
+        <PackageReference Include="YamlDotNet" Version="16.3.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <Page Include="MainWindow.axaml" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <AvaloniaXaml Remove="space-station-14\**" />
+      <AvaloniaXaml Remove="MIOS SS14 Editor\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Compile Remove="space-station-14\**" />
+      <Compile Remove="MIOS SS14 Editor\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <EmbeddedResource Remove="space-station-14\**" />
+      <EmbeddedResource Remove="MIOS SS14 Editor\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Remove="space-station-14\**" />
+      <None Remove="MIOS SS14 Editor\**" />
+    </ItemGroup>
+
+</Project>

@@ -1,0 +1,123 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        x:Class="YAMIOS.MainWindow"
+        Title="YAMIOS Prototype Editor"
+        Width="1400" Height="900"
+        WindowStartupLocation="CenterScreen"
+        Background="#2D2D30">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <!-- Menu Bar -->
+        <Menu Grid.Row="0" Background="#3C3C3C" Foreground="White" Height="40">
+            <MenuItem Header="File" Foreground="White">
+                <MenuItem Header="Open Prototype File..." Click="OpenFile_Click" />
+                <MenuItem Header="Scan Repo for Prototypes..." Click="ScanRepo_Click" />
+                <MenuItem Header="New Prototype..." Click="NewPrototype_Click" />
+                <Separator />
+                <MenuItem Header="Exit" Click="Exit_Click" />
+            </MenuItem>
+            <MenuItem Header="Edit" Foreground="White">
+                <MenuItem Header="Undo" />
+                <MenuItem Header="Redo" />
+            </MenuItem>
+            <MenuItem Header="View" Foreground="White">
+                <MenuItem Header="Zoom In" />
+                <MenuItem Header="Zoom Out" />
+                <MenuItem Header="Reset Zoom" />
+            </MenuItem>
+        </Menu>
+
+        <!-- Main Content Area -->
+        <DockPanel Grid.Row="1">
+            <!-- Left Sidebar for Prototype Selection -->
+            <Border DockPanel.Dock="Left" Width="320" Background="#252526" BorderBrush="#3E3E42" BorderThickness="0,0,1,0">
+                <Grid Background="#1E1E1E" Margin="5">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <TextBox Grid.Row="0" x:Name="SearchBox" Margin="0,0,0,5" 
+                           Background="#3C3C3C" Foreground="White" BorderBrush="#555" Watermark="Search prototypes..." />
+                    <ListBox Grid.Row="1" x:Name="PrototypeList" 
+                           Background="#1E1E1E" Foreground="White"
+                           BorderBrush="#555" SelectionChanged="PrototypeList_SelectionChanged">
+                    </ListBox>
+                </Grid>
+            </Border>
+            
+            <!-- Main Inspector Area -->
+            <Grid Background="#1E1E1E">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                
+                <!-- Toolbar -->
+                <StackPanel Grid.Row="0" Orientation="Horizontal" Background="#3C3C3C" Height="40">
+                    <Button x:Name="ValidateButton" Content="🔍 Validate" ToolTip.Tip="Validate Prototype" Width="100" Height="30" Margin="5" 
+                          Background="#555" Foreground="White" Click="ValidateButton_Click" />
+                    <Button x:Name="SaveButton" Content="💾 Save" ToolTip.Tip="Save Prototype" Width="80" Height="30" Margin="5" 
+                          Background="#0078D4" Foreground="White" Click="SaveButton_Click" />
+                </StackPanel>
+                
+                <!-- Prototype Inspector -->
+                <ScrollViewer Grid.Row="1" Background="#1E1E1E" Margin="10" VerticalScrollBarVisibility="Auto">
+                    <StackPanel>
+                        <!-- Prototype Header -->
+                        <Border Background="#232323" CornerRadius="6" BorderBrush="#555" BorderThickness="1" Margin="0,0,0,10" Padding="15">
+                            <StackPanel Orientation="Horizontal">
+                                <Image x:Name="PrototypeSprite" Width="64" Height="64" Margin="0,0,16,0" Stretch="Uniform" RenderOptions.BitmapInterpolationMode="None" />
+                                <StackPanel>
+                                    <TextBlock x:Name="PrototypeTitle" FontSize="24" FontWeight="Bold" Foreground="White" />
+                                    <TextBlock x:Name="PrototypeId" FontSize="14" Foreground="#AAA" />
+                                    <TextBlock x:Name="PrototypeDescription" FontSize="12" Foreground="#CCC" Margin="0,5,0,0" TextWrapping="Wrap" MaxWidth="400" />
+                                    <TextBlock x:Name="ValidationResult" FontSize="12" Foreground="Red" Margin="0,5,0,0" />
+                                </StackPanel>
+                            </StackPanel>
+                        </Border>
+                        
+                        <!-- Basic Properties Section -->
+                        <TextBlock Text="Basic Properties" FontWeight="Bold" FontSize="18" Foreground="White" Margin="0,0,0,10" />
+                        <Border Background="#232323" CornerRadius="6" BorderBrush="#555" BorderThickness="1" Margin="0,0,0,15" Padding="15">
+                            <StackPanel x:Name="BasicPropertiesPanel">
+                                <!-- Basic properties will be populated dynamically -->
+                            </StackPanel>
+                        </Border>
+                        
+                        <!-- Components Section -->
+                        <TextBlock Text="Components" FontWeight="Bold" FontSize="18" Foreground="White" Margin="0,10,0,10" />
+                        <ItemsControl x:Name="ComponentPanel" Background="Transparent">
+                            <!-- Components will be populated dynamically -->
+                        </ItemsControl>
+                        
+                        <!-- Linked Textures -->
+                        <TextBlock Text="Linked Textures" FontWeight="Bold" FontSize="16" Foreground="White" Margin="0,20,0,5" />
+                        <ListBox x:Name="TextureList" Height="120" Background="#232323" Foreground="White" BorderBrush="#555" />
+                    </StackPanel>
+                </ScrollViewer>
+            </Grid>
+        </DockPanel>
+
+        <!-- Status Bar -->
+        <Border Grid.Row="2" Background="#007ACC" BorderBrush="#005A9E" BorderThickness="0,1,0,0" Height="28">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                
+                <TextBlock x:Name="LogText" Text="Ready - Select a prototype to start editing!" 
+                         VerticalAlignment="Center" Margin="10,0" Foreground="White" />
+                
+                <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center" Margin="10,0">
+                    <TextBlock x:Name="RepoStatus" Text="No SS14 Repo" Foreground="#FFD700" />
+                </StackPanel>
+            </Grid>
+        </Border>
+    </Grid>
+</Window>
